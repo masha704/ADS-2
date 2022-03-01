@@ -15,19 +15,13 @@ double pown(double value, uint16_t n) {
 }
 
 uint64_t fact(uint16_t n) {
-    if (n < 0) {
-        return 0;
-    }
-    if (n == 0) {
+    if (n < 2) {
         return 1;
     }
     return n * fact(n - 1);
 }
 
 double calcItem(double x, uint16_t n) {
-    if (n < 0) {
-        return 0;
-    }
     return pown(x, n) / (double)fact(n);
 }
 
@@ -42,12 +36,14 @@ double sinn(double x, uint16_t count) {
     if (count == 1) {
         return x;
     }
-    return pown(-1, count - 1) * calcItem(x, count * 2 - 1) + sinn(x, count - 1);
+    double tmp = pown(-1, count - 1) * calcItem(x, count * 2 - 1);
+    return tmp + sinn(x, count - 1);
 }
 
 double cosn(double x, uint16_t count) {
     if (count == 1) {
-        return x;
+        return 1;
     }
-    return pown(-1, count - 1) * calcItem(x, 2 * count - 2) + cosn(x, count - 1);
+    double tmp = pown(-1, count - 1) * calcItem(x, 2 * count - 2);
+    return tmp + cosn(x, count - 1);
 }
